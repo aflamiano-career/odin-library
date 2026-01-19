@@ -1,0 +1,51 @@
+html,
+body {
+  background-color: #494949;
+}
+
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+}
+
+header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+header h1 {
+  color: #fff;
+}
+
+.u-container {
+  display: grid;
+  padding: 10px;
+}
+
+.book__list {
+  display: grid;
+  gap: 20px;
+}
+
+.list__item {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.item--read {
+  background-color: rgb(181, 255, 181);
+}
+
+.item--unread {
+  background-color: rgb(255, 208, 208);
+}
+
+.form__add-book {
+  display: none;
+}
+
+.active {
+  display: block;
+}
