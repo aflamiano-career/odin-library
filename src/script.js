@@ -19,8 +19,6 @@ const myLibrary = [
   new Book("J.D. Salinger", "The Catcher in the Rye", 277, true),
 ];
 
-console.log(myLibrary);
-
 const books = document.querySelector(".book__list");
 
 myLibrary.forEach((book) => {
@@ -34,7 +32,6 @@ function addToHTML(book) {
 
   const btnIsRead = document.createElement("button");
 
-  console.log("addtoHTML value: " + book.isRead);
   if (book.isRead === true) {
     card.classList.add("item--read");
     btnIsRead.textContent = "Unread";
@@ -83,6 +80,7 @@ function displayForm() {
 
 btnAddBook.addEventListener("click", displayForm);
 books.addEventListener("click", deleteFromLibrary);
+books.addEventListener("click", updateRead);
 
 const btnAddSubmit = document.querySelector(".add-book--submit");
 
@@ -92,12 +90,11 @@ btnAddSubmit.addEventListener("click", (e) => {
   const formPages = document.querySelector(".add-book__pages");
   const formIsRead = document.querySelector('input[name="isRead"]:checked');
 
-  console.log("Submit value: " + formIsRead.value);
   addBookToLibrary(
     formAuthor.value,
     formTitle.value,
     formPages.value,
-    formIsRead.value,
+    formIsRead.value === "true",
   );
 
   e.preventDefault();
@@ -113,9 +110,18 @@ function deleteFromLibrary(e) {
 
   if (e.target.textContent === "x") {
     myLibrary.splice(bookItem, 1);
-    console.log(myLibrary);
     e.target.parentNode.remove();
+    console.log(myLibrary);
   }
+}
+
+function updateRead(e) {
+  // console.log(e.target);
+  const elementId = e.target.parentNode.getAttribute("data-id");
+  // console.log(elementId);
+  const bookItem = myLibrary.findIndex((book) => {
+    return elementId === book.id;
+  });
 
   if (e.target.textContent === "Read" || e.target.textContent === "Unread") {
     // console.log(myLibrary[bookItem]);
