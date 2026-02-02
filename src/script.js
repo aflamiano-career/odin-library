@@ -1,9 +1,22 @@
-function Book(author, title, pages, isRead) {
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.isRead = isRead;
+// *** ORIGINAL BOOK CONSTRUCTOR ***
+//
+// function Book(author, title, pages, isRead) {
+//   this.id = crypto.randomUUID();
+//   this.author = author;
+//   this.title = title;
+//   this.pages = pages;
+//   this.isRead = isRead;
+// }
+
+// *** REFACTOR BOOK CONSTRUCTOR TO CLASS ***
+class Book {
+  constructor(author, title, pages, isRead) {
+    this.id = crypto.randomUUID();
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 }
 
 const myLibrary = [
