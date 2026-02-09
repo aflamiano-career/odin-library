@@ -19,19 +19,32 @@
           <ul>
             <li>
               <label for="title">Title</label>
-              <input type="text" name="title" class="add-book__title" />
+              <input
+                type="text"
+                name="title"
+                class="add-book__title"
+                required
+              />
             </li>
             <li>
               <label for="author">Author</label>
-              <input type="text" name="author" class="add-book__author" />
+              <input
+                type="text"
+                name="author"
+                class="add-book__author"
+                required
+              />
             </li>
             <li>
               <label for="pages">Number of pages</label>
               <input
                 type="number"
+                min="1"
                 name="pages"
+                value="0"
                 id="pages"
                 class="add-book__pages"
+                required
               />
             </li>
             <li>

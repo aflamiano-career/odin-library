@@ -95,23 +95,92 @@ btnAddBook.addEventListener("click", displayForm);
 books.addEventListener("click", deleteFromLibrary);
 books.addEventListener("click", updateRead);
 
-const btnAddSubmit = document.querySelector(".add-book--submit");
+// Form validation
+const form = document.querySelector("form");
+form.setAttribute("novalidate", "");
 
-btnAddSubmit.addEventListener("click", (e) => {
-  const formTitle = document.querySelector(".add-book__title");
-  const formAuthor = document.querySelector(".add-book__author");
-  const formPages = document.querySelector(".add-book__pages");
-  const formIsRead = document.querySelector('input[name="isRead"]:checked');
+const formTitle = document.querySelector(".add-book__title");
+const formAuthor = document.querySelector(".add-book__author");
+const formPages = document.querySelector(".add-book__pages");
+const formIsRead = document.querySelector('input[name="isRead"]:checked');
 
-  addBookToLibrary(
-    formAuthor.value,
-    formTitle.value,
-    formPages.value,
-    formIsRead.value === "true",
-  );
+const titleError = document.createElement("span");
+titleError.textContent = "The title must be filled";
+titleError.classList.add("error");
+formTitle.after(titleError);
+
+const authorError = document.createElement("span");
+authorError.textContent = "The author must be filled";
+authorError.classList.add("error");
+formAuthor.after(authorError);
+
+const pagesError = document.createElement("span");
+pagesError.classList.add("error");
+formPages.after(pagesError);
+
+form.addEventListener("submit", (e) => {
+  let errors = [];
+  if (formTitle.validity.valueMissing) {
+    titleError.classList.add("active");
+    errors.push(null);
+  } else {
+    titleError.classList.remove("active");
+  }
+
+  if (formAuthor.validity.valueMissing) {
+    authorError.classList.add("active");
+
+    errors.push(null);
+  } else {
+    authorError.classList.remove("active");
+  }
+
+  if (formPages.validity.valueMissing) {
+    pagesError.textContent = "The number of pages must be filled";
+    pagesError.classList.add("active");
+
+    errors.push(null);
+  } else {
+    pagesError.classList.remove("active");
+  }
+
+  if (formPages.validity.rangeUnderflow) {
+    pagesError.textContent = "The number of pages must be greater than 1";
+    pagesError.classList.add("active");
+
+    errors.push(null);
+  } else {
+    pagesError.classList.remove("active");
+  }
+
+  if (errors.length < 1) {
+    addBookToLibrary(
+      formAuthor.value,
+      formTitle.value,
+      formPages.value,
+      formIsRead.value === "true",
+    );
+  }
 
   e.preventDefault();
 });
+
+// const btnAddSubmit = document.querySelector(".add-book--submit");
+// btnAddSubmit.addEventListener("click", (e) => {
+//   const formTitle = document.querySelector(".add-book__title");
+//   const formAuthor = document.querySelector(".add-book__author");
+//   const formPages = document.querySelector(".add-book__pages");
+//   const formIsRead = document.querySelector('input[name="isRead"]:checked');
+
+//   addBookToLibrary(
+//     formAuthor.value,
+//     formTitle.value,
+//     formPages.value,
+//     formIsRead.value === "true",
+//   );
+
+//   e.preventDefault();
+// });
 
 function deleteFromLibrary(e) {
   // console.log(e.target);
